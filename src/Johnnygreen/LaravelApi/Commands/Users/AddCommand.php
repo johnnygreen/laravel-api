@@ -21,9 +21,9 @@ class AddCommand extends Command {
     {
       $user = new User;
       $user->username = $username;
-      $user->type = $this->ask('Type [Admin|Sales Clerk]:');
       $user->first_name = $this->ask('First Name:');
       $user->last_name = $this->ask('Last Name:');
+      $user->email_address = $this->ask('Email Address:');
       $hasher = new Md5Hasher;
       $user->password = $hasher->make($this->ask('Password:'));
 
@@ -42,7 +42,7 @@ class AddCommand extends Command {
       }
       else
       {
-
+        $this->comment("Action canceled.");
       }
     }
     else
