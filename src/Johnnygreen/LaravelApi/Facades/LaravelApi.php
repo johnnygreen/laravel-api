@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class Api extends Facade {
+class LaravelApi extends Facade {
 
 	/**
 	 * Get the registered name of the component.
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'api'; }
+	protected static function getFacadeAccessor() { return 'laravel-api'; }
 
 }

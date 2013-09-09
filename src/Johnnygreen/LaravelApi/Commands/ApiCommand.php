@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Command;
 
-use Johnnygreen\LaravelApi\Api;
+use Johnnygreen\LaravelApi\LaravelApi;
 
 class ApiCommand extends Command {
 
@@ -12,7 +12,7 @@ class ApiCommand extends Command {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->api = new Api;
+		$this->api = new LaravelApi;
 	}
 
 	public function fire()

@@ -37,15 +37,15 @@ class TokenGuard extends Guard {
       switch ($username)
       {
         case 'customers_email_address':
-          $provider = new EloquentUserProvider(new OscHasher, 'v1\Auth\Customer');
+          $provider = new EloquentUserProvider(new OscHasher, 'Johnnygreen\LaravelApi\Auth\Customer');
           break;
 
         case 'username':
-          $provider = new EloquentUserProvider(new Md5Hasher, 'v1\Auth\User');
+          $provider = new EloquentUserProvider(new Md5Hasher, 'Johnnygreen\LaravelApi\Auth\User');
           break;
 
         case 'access_token':
-          $provider = new TokenUserProvider(new PassthruHasher, 'v1\Auth\Token');
+          $provider = new TokenUserProvider(new PassthruHasher, 'Johnnygreen\LaravelApi\Auth\Token');
           break;
 
         default:
@@ -75,8 +75,8 @@ class TokenGuard extends Guard {
     $name = $name ?: \Route::currentRouteAction();
     
     if (is_null($user)) return false;
-    if (! method_exists($user, 'hasPermissionTo')) return false;
-    if (! $user->hasPermissionTo($name)) return false;
+    if ( ! method_exists($user, 'hasPermissionTo')) return false;
+    if ( ! $user->hasPermissionTo($name)) return false;
     return true;
   }
 

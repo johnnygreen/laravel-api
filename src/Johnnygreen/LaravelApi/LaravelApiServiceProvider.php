@@ -14,6 +14,12 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
+	public function boot()
+	{
+		$this->package('johnnygreen/larvel-api');
+		include __DIR__.'/../../routes.php';
+	}
+
 	/**
 	 * Register the service provider.
 	 *
@@ -21,9 +27,9 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['api'] = $this->app->share(function($app)
+		$this->app['laravel-api'] = $this->app->share(function($app)
 		{
-			return new Api;
+			return new LaravelApi;
 		});
 
 		$this->registerExtensions();
@@ -35,7 +41,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function registerExtensions()
 	{
-		\Auth::extend('laravel-api-token', function()
+		\Auth::extend('token', function()
 		{
 			return new Auth\TokenGuard;
 		});
@@ -161,7 +167,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return ['api'];
+		return ['laravel-api'];
 	}
 
 }

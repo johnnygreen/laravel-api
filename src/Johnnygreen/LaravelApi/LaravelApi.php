@@ -1,6 +1,6 @@
 <?php namespace Johnnygreen\LaravelApi;
 
-class Api {
+class LaravelApi {
 
 	private $version = '1.0.0';
 
