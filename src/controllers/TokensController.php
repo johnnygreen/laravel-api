@@ -1,4 +1,4 @@
-<?php namespace Vendor\Package;
+<?php namespace Johnnygreen\LaravelApi;
 
 use Illuminate\Routing\Controller;
 
