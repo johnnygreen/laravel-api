@@ -15,6 +15,10 @@
 		"illuminate/routing": ">=4.0.0"
 	},
 	"autoload": {
+		"classmap": [
+			"src/migrations",
+			"src/controllers"
+		],
 		"psr-0": {
 			"Johnnygreen\\LaravelApi": "src/"
 		}
