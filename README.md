@@ -1,5 +1,6 @@
 laravel-api
 ===========
+For now this is just an example API using Laravel 4.  Learn.
 
 ## Installation
 To add Laravel-API to your Laravel application follow this three steps:
@@ -25,6 +26,12 @@ Add below to the `providers` array in `app/config/app.php` configuration file (a
 Add below to the `aliases` array in `app/config/app.php` configuration file (add the end):
 ```
 'LaravelApi'		=> 'Johnnygreen\LaravelApi\Facades\LaravelApi',
+```
+
+Run the migrations for the package
+```
+artisan migrate:install
+artisan migrate --package="johnnygreen/laravel-api"
 ```
 
 ## Configuration

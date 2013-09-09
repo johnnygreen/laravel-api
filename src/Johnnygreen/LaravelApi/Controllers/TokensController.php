@@ -3,7 +3,7 @@
 use Johnnygreen\LaravelApi\Auth\Token;
 use Johnnygreen\LaravelApi\RestfulJsonApi;
 
-class TokensController extends BaseController {
+class TokensController extends \Controller {
 
   use RestfulJsonApi;
 
