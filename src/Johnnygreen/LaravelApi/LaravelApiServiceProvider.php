@@ -1,7 +1,6 @@
 <?php namespace Johnnygreen\LaravelApi;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Auth\AuthManager as AuthManager;
 
 use Johnnygreen\LaravelApi\Auth;
 use Johnnygreen\LaravelApi\Commands;
@@ -13,7 +12,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 
 	public function boot()
 	{
