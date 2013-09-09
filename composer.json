@@ -17,6 +17,9 @@
 		"psr-0": {
 			"Johnnygreen\\LaravelApi": "src/"
 		}
+		"files": {
+			"src/routes.php"
+		}
 	},
 	"minimum-stability": "dev"
 }

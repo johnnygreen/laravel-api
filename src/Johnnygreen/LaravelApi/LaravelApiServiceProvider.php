@@ -1,6 +1,7 @@
 <?php namespace Johnnygreen\LaravelApi;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\AuthManager as AuthManager;
 
 use Johnnygreen\LaravelApi\Auth;
 use Johnnygreen\LaravelApi\Commands;
@@ -17,6 +18,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('johnnygreen/laravel-api');
+
 		include __DIR__.'/../../routes.php';
 	}
 
@@ -41,11 +43,12 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function registerExtensions()
 	{
-		\Auth::extend('token', function()
-		{
-			return new Auth\TokenGuard;
+		$this->app->boot(function($app) {
+		  \Auth::extend('token', function()
+			{
+				return new Auth\TokenGuard;
+			});
 		});
-		
 	}
 
 	public function registerApiCommands()
