@@ -1,7 +1,12 @@
 <?php
 
-\Route::filter('LaravelApi.auth', '\Johnnygreen\LaravelApi\Auth\Filter');
+\Route::filter(
+	\Config::get('johnnygreen/laravel-api::filter.name'),
+	'\Johnnygreen\LaravelApi\Auth\Filter'
+);
 
-\Route::resource('tokens', '\Johnnygreen\LaravelApi\Controllers\TokensController', [
-	'only' => ['store']
-]);
+\Route::resource(
+	\Config::get('johnnygreen/laravel-api::routes.tokens'),
+	'\Johnnygreen\LaravelApi\Controllers\TokensController',
+	['only' => ['store']]
+);

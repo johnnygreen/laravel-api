@@ -11,15 +11,13 @@
 	"require": {
 		"php": ">=5.4.0",
 		"illuminate/support": ">=4.0.0",
-		"illuminate/database": ">=4.0.0"
+		"illuminate/database": ">=4.0.0",
+		"illuminate/routing": ">=4.0.0"
 	},
 	"autoload": {
 		"psr-0": {
 			"Johnnygreen\\LaravelApi": "src/"
-		},
-		"files": [
-			"src/routes.php"
-		]
+		}
 	},
 	"minimum-stability": "dev"
 }
