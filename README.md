@@ -38,5 +38,5 @@ artisan migrate --package="johnnygreen/laravel-api"
 
 You will want to run the following command to publish the config to your application, otherwise it will be overwritten in updates.
 ```
-php artisan config:publish johnnygreen/laravel-api
+artisan config:publish johnnygreen/laravel-api
 ```
