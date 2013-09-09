@@ -1,20 +1,22 @@
 {
-    "name": "johnnygreen/laravel-api",
-    "description": "",
-    "authors": [
-        {
-            "name": "Johnny Green",
-            "email": "johnnygreen@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.1.x"
-    },
-    "autoload": {
-        "psr-0": {
-            "Johnnygreen\\LaravelApi": "src/"
-        }
-    },
-    "minimum-stability": "dev"
+	"name": "johnnygreen/laravel-api",
+	"description": "A package to aid with Laravel 4 API development",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Johnny Green",
+			"email": "johnnygreen@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": ">=4.0.0",
+		"illuminate/database": ">=4.0.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"Johnnygreen\\LaravelApi": "src/"
+		}
+	},
+	"minimum-stability": "dev"
 }
