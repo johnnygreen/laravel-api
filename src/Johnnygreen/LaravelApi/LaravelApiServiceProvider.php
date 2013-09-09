@@ -16,7 +16,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('johnnygreen/larvel-api');
+		$this->package('johnnygreen/laravel-api');
 		include __DIR__.'/../../routes.php';
 	}
 
