@@ -4,11 +4,11 @@ class LaravelApi {
 
 	private $version = '1.0.0';
 
-	public function __construct()
+	public function start()
 	{
-		
+
 	}
-	
+
 	public function getVersion()
 	{
 		return $this->version;

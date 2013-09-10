@@ -17,8 +17,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('johnnygreen/laravel-api');
-
-		require __DIR__.'/../../routes.php';
 	}
 
 	/**
@@ -28,10 +26,16 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		/*$this->app['laravel-api'] = $this->app->share(function($app)
+		$this->app['laravel-api'] = $this->app->share(function($app)
 		{
 			return new LaravelApi;
-		});*/
+		});
+
+		$this->app->booted(function($app) {
+
+			require __DIR__.'/../../routes.php';
+
+		});
 
 		$this->registerExtensions();
 		$this->registerApiCommands();
@@ -169,7 +173,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return []; //['laravel-api'];
+		return ['laravel-api'];
 	}
 
 }
