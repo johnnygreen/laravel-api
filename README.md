@@ -18,12 +18,13 @@ Add the following to your `composer.json` file:
 
 Then run `composer update` or `composer install` if you have not already installed packages.
 
-Add below to the `providers` array in `app/config/app.php` configuration file (add the end):
+Add below to the `providers` array in `app/config/app.php` configuration file (at the end):
 ```
 'Johnnygreen\LaravelApi\LaravelApiServiceProvider',
 ```
 
-Add below to the `aliases` array in `app/config/app.php` configuration file (add the end):
+Add below to the `aliases` array in `app/config/app.php` configuration file (at the end):
+The LaravelApi Facade currently doesn't do much, but we might see it in the future.
 ```
 'LaravelApi'		=> 'Johnnygreen\LaravelApi\Facades\LaravelApi',
 ```
