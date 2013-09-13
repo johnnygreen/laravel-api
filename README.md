@@ -28,7 +28,7 @@ Add below to the `aliases` array in `app/config/app.php` configuration file (add
 'LaravelApi'		=> 'Johnnygreen\LaravelApi\Facades\LaravelApi',
 ```
 
-Run the migrations for the package -- these databases will be created
+Run the migrations for the package -- these databases will be created:
 ```
 users
 groups
@@ -51,7 +51,7 @@ artisan config:publish johnnygreen/laravel-api
 
 ## Usage
 
-I extend my API Controllers with the following ApiController.
+I extend my API Controllers with the following ApiController.  When someone is using an access_token, it will log them in automatically.
 ```
 <?php namespace Api;
 
@@ -73,3 +73,52 @@ class ApiController extends \Controller {
 
 }
 ```
+
+Here is a Controller I created to issue tokens.
+```
+<?php namespace v1;
+
+use Johnnygreen\LaravelApi\Auth\Token;
+
+class TokensController extends BaseController {
+
+  use Johnnygreen\LaravelApi\RestfulJsonApi;
+
+  public function store()
+  {
+    $input = \Input::get('credentials') ?: [];
+
+    $validator = \Validator::make($input, [
+      'username' => ['required'],
+      'password' => ['required']
+    ]);
+
+    if ($validator->passes())
+    {
+      if (\Auth::once($input))
+      {
+        try
+        {
+          $token = Token::renewOrCreate(\Auth::user());
+        }
+        catch (\Exception $e)
+        {
+          return $this->internalServerError($e->getMessage());
+        }
+
+        return $this->created($token);
+      }
+      else
+      {
+        return $this->unauthorized();
+      }
+    }
+    else
+    {
+      return $this->badRequest($validator);
+    }
+  }
+
+}
+```
+
