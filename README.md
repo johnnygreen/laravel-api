@@ -76,13 +76,11 @@ class ApiController extends \Controller {
 
 Here is a Controller I created to issue tokens.
 ```
-<?php namespace v1;
+<?php namespace Api;
 
 use Johnnygreen\LaravelApi\Auth\Token;
 
-class TokensController extends BaseController {
-
-  use Johnnygreen\LaravelApi\RestfulJsonApi;
+class TokensController extends ApiController {
 
   public function store()
   {
@@ -122,3 +120,32 @@ class TokensController extends BaseController {
 }
 ```
 
+If I want to require Authorization on a controller I do:
+```
+
+```
+
+If I want to require Authorization for certain levels of visibility I do:
+```
+<?php namespace Api;
+
+use Product;
+use Serializer\SafeInventory;
+
+class InventoryController extends ApiController {
+
+  public function index($product_id)
+  {
+    $product = Product::enabled()->with('inventory')->find($product_id);
+
+    return ( ! is_null($product) and ! is_null($product->inventory))
+         ? $this->okay(
+             $inventory = \Auth::check("Full Inventory Visibility")
+                        ? $product->inventory
+                        : new SafeInventory($product->inventory)
+           )
+         : $this->notFound();
+  }
+
+}
+```
