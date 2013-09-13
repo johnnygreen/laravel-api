@@ -1,4 +1,4 @@
-laravel-api
+Laravel-API
 ===========
 For now this is just an example API using Laravel 4.  Learn.
 
@@ -44,7 +44,7 @@ artisan migrate --package="johnnygreen/laravel-api"
 
 ## Configuration
 
-You will want to run the following command to publish the config to your application, otherwise it will be overwritten in updates.
+Coming Soon -- hoping to make 'Laravel-API' a bit more flexible with config options.
 ```
 artisan config:publish johnnygreen/laravel-api
 ```
@@ -179,4 +179,29 @@ class InventoryController extends ApiController {
   }
 
 }
+```
+
+## Commands
+
+Some fun commands that come with this package:
+```
+user
+  user:add              Add user.
+  user:list             List users.
+  user:remove           Remove user.
+  
+permission
+  permission:add        Add permission.
+  permission:grant      Grant a permission to a User.
+  permission:list       List permissions.
+  permission:remove     Remove permission.
+  permission:revoke     Revoke a permission from a User.
+  permission:seed       Seed permissions table from the routes lookup.
+
+group
+  group:add             Add group.
+  group:join            Add a User to a Group.
+  group:leave           Remove a User from a Group.
+  group:list            List groups.
+  group:remove          Remove group.
 ```
