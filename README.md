@@ -28,7 +28,15 @@ Add below to the `aliases` array in `app/config/app.php` configuration file (add
 'LaravelApi'		=> 'Johnnygreen\LaravelApi\Facades\LaravelApi',
 ```
 
-Run the migrations for the package
+Run the migrations for the package -- these databases will be created
+```
+users
+groups
+permissions
+group_user
+permission_user
+group_permission
+```
 ```
 artisan migrate:install
 artisan migrate --package="johnnygreen/laravel-api"
@@ -39,4 +47,29 @@ artisan migrate --package="johnnygreen/laravel-api"
 You will want to run the following command to publish the config to your application, otherwise it will be overwritten in updates.
 ```
 artisan config:publish johnnygreen/laravel-api
+```
+
+## Usage
+
+I extend my API Controllers with the following ApiController.
+```
+<?php namespace Api;
+
+use \Johnnygreen\LaravelApi\Auth\Token;
+
+class ApiController extends \Controller {
+
+  use \Johnnygreen\LaravelApi\RestfulJsonApi;
+
+  public function __construct()
+  {
+    // when this happens, the access token is refreshed
+    // this will log in access_token users automatically
+    if ($access_token = Token::extractFromHeader())
+    {
+      \Auth::once(['access_token' => $access_token]);
+    }
+  }
+
+}
 ```
