@@ -123,6 +123,10 @@ class TokensController extends ApiController {
 
 }
 ```
+### Route based Visibility
+
+A Permission exists in the permissions table for "ProductsController@index" to be able to access the index method.
+Also a User must be associated directly with that Permission, or one of a User's Groups must be associated with that Permission.
 
 If I want to require Authorization on a controller I do:
 ```
@@ -157,6 +161,10 @@ class ProductsController extends ApiController {
 
 }
 ```
+### Permission based Visibility
+
+A Permission exists in the permissions table for "Full Inventory Visibility". Also a User must be associated 
+directly with that Permission, or one of a User's Groups must be associated with that Permission.
 
 If I want to require Authorization for certain levels of visibility I do:
 ```
