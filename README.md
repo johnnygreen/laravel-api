@@ -80,6 +80,7 @@ Here is a Controller I created to issue tokens.
 
 use Johnnygreen\LaravelApi\Auth\Token;
 
+// /tokens
 class TokensController extends ApiController {
 
   public function store()
@@ -122,7 +123,36 @@ class TokensController extends ApiController {
 
 If I want to require Authorization on a controller I do:
 ```
+<?php namespace Api;
 
+// /products
+class ProductsController extends ApiController {
+
+  public function __construct()
+  {
+    parent::__construct();
+    
+    // set the filter to require authorization for index route
+    $this->beforeFilter('LaravelApi.auth', ['only' => 'index']);
+  }
+  
+  // get full products list
+  public function index()
+  {
+    return $this->okay(Product::enabled()->get());
+  }
+  
+  // only view one product at a time
+  public function show($id)
+  {
+    $product = Product::enabled()->find($id);
+
+    return ! is_null($product)
+         ? $this->okay($product)
+         : $this->notFound();
+  }
+
+}
 ```
 
 If I want to require Authorization for certain levels of visibility I do:
@@ -132,6 +162,7 @@ If I want to require Authorization for certain levels of visibility I do:
 use Product;
 use Serializer\SafeInventory;
 
+// /products/:id/inventory
 class InventoryController extends ApiController {
 
   public function index($product_id)
