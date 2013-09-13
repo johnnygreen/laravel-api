@@ -218,3 +218,7 @@ group
   group:list            List groups.
   group:remove          Remove group.
 ```
+
+## Issues
+
+I threw this documentation together rather quickly.  If you run into any issues trying to setup or use the package, please file an issue with this repo.  Thanks.
