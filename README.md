@@ -12,7 +12,7 @@ Add the following to your `composer.json` file:
   "url": "https://github.com/johnnygreen/laravel-api"
 }],
 "require": [
-  "johnnygreen/Laravel-api" : "dev-master"
+  "johnnygreen/laravel-api" : "dev-master"
 ]
 ```
 
