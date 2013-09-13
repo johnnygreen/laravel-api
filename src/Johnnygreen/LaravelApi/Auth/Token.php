@@ -50,7 +50,7 @@ class Token implements UserInterface {
     $access_token = "";
     $authorization = \Request::header('Authorization');
 
-    if (is_null($authorization))
+    if (is_null($authorization) and function_exists('apache_request_headers'))
     {
       $headers = apache_request_headers();
       $authorization = isset($headers['Authorization'])

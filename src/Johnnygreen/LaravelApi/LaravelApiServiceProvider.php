@@ -17,6 +17,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('johnnygreen/laravel-api');
+		require __DIR__.'/../../routes.php';
 	}
 
 	/**
@@ -31,12 +32,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			return new LaravelApi;
 		});
 
-		$this->app->booted(function($app) {
-
-			require __DIR__.'/../../routes.php';
-
-		});
-
 		$this->registerExtensions();
 		$this->registerApiCommands();
 		$this->registerGroupCommands();
@@ -46,8 +41,9 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function registerExtensions()
 	{
-		$this->app->boot(function($app) {
-		  \Auth::extend('token', function()
+		$this->app->booted(function($app)
+		{
+			\Auth::extend('token', function()
 			{
 				return new Auth\TokenGuard;
 			});
