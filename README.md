@@ -1,6 +1,6 @@
 Laravel-API
 ===========
-For now this is just an example API using Laravel 4.  Learn.
+Authorization and Authentication using simple access_tokens.  Auth extends Laravel 4 \Auth with "token" method.  Controller helper methods when using RestfulJsonApi trait.
 
 ## Installation
 To add Laravel-API to your Laravel application follow this three steps:
@@ -76,6 +76,18 @@ class ApiController extends \Controller {
 
 }
 ```
+
+To use "token" Auth:
+```
+// app/config/auth.php
+
+return array(
+
+  'driver' => 'token',
+
+);
+```
+
 
 Here is a Controller I created to issue tokens.
 ```
