@@ -58,7 +58,7 @@ Notice the "use \Johnnygreen\LaravelApi\RestfulJsonApi;".  That trait gives our 
 ```
 <?php namespace Api;
 
-use \Johnnygreen\LaravelApi\Auth\Token;
+use Johnnygreen\LaravelApi\Auth\Token;
 
 class ApiController extends \Controller {
 
@@ -131,6 +131,8 @@ Also a User must be associated directly with that Permission, or one of a User's
 If I want to require Authorization on a controller I do:
 ```
 <?php namespace Api;
+
+use Product;
 
 // /products
 class ProductsController extends ApiController {
