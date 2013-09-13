@@ -53,6 +53,8 @@ artisan config:publish johnnygreen/laravel-api
 ## Usage
 
 I extend my API Controllers with the following ApiController.  When someone is using an access_token, it will log them in automatically.
+
+Notice the "use \Johnnygreen\LaravelApi\RestfulJsonApi;".  That trait gives our ApiController some very helpful methods.
 ```
 <?php namespace Api;
 
