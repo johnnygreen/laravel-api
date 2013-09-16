@@ -1,5 +1,6 @@
 <?php namespace Johnnygreen\LaravelApi;
 
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Support\ServiceProvider;
 
 use Johnnygreen\LaravelApi\Auth;
@@ -69,7 +70,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	{
 		$this->app->booted(function($app)
 		{
-			\App::error(function(\MethodNotAllowedHttpException $exception, $code)
+			\App::error(function(MethodNotAllowedHttpException $exception, $code)
 			{
 				if (\Request::getMethod() === "OPTIONS")
 				{
