@@ -16,7 +16,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('johnnygreen/laravel-api');
+		$app = $this->app;
 
 		require __DIR__.'/../../routes.php';
 	}
@@ -28,17 +28,32 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['laravel-api'] = $this->app->share(function($app)
+		$this->package('johnnygreen/laravel-api');
+
+		$app = $this->app;
+
+		$app['laravel-api'] = $app->share(function($app)
 		{
 			return new LaravelApi;
 		});
 
-		$this->registerExtensions();
-		$this->registerErrorHandlers();
-		$this->registerApiCommands();
-		$this->registerGroupCommands();
-		$this->registerUserCommands();
-		$this->registerPermissionCommands();
+		if ($app['config']->get('laravel-api::register_extensions', true))
+		{
+			$this->registerExtensions();
+		}
+
+		if ($app['config']->get('laravel-api::register_handlers', true))
+		{
+			$this->registerHandlers();
+		}
+
+		if ($app['config']->get('laravel-api::register_commands', true))
+		{
+			$this->registerApiCommands();
+			$this->registerGroupCommands();
+			$this->registerUserCommands();
+			$this->registerPermissionCommands();
+		}
 	}
 
 	public function registerExtensions()
@@ -52,28 +67,31 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		});
 	}
 
-	public function registerErrorHandlers()
+	public function registerHandlers()
 	{
-		App::error(function(MethodNotAllowedHttpException $exception, $code)
+		$this->app->booted(function($app)
 		{
-			if (\Request::getMethod() === "OPTIONS")
+			\App::error(function(\MethodNotAllowedHttpException $exception, $code)
 			{
-				$headers = $exception->getHeaders();
-				$allow = isset($headers['Allow']) ? $headers['Allow'] : '*';
+				if (\Request::getMethod() === "OPTIONS")
+				{
+					$headers = $exception->getHeaders();
+					$allow = isset($headers['Allow']) ? $headers['Allow'] : '*';
 
-				$headers = [
-					'Access-Control-Allow-Origin' => '*',
-					'Access-Control-Allow-Methods'=> $allow,
-					'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type'
-				];
+					$headers = [
+						'Access-Control-Allow-Origin' => '*',
+						'Access-Control-Allow-Methods'=> $allow,
+						'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type'
+					];
 
-				return Response::make('', 200, $headers);
-			}
+					return \Response::make('', 200, $headers);
+				}
 
-			return \v1\Serializer\Error::json([
-				'code'    => $code,
-				'message' => 'Method Not Allowed'
-			]);
+				return Serializers\Error::json([
+					'code'    => $code,
+					'message' => 'Method Not Allowed'
+				]);
+			});
 		});
 	}
 
