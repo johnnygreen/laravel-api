@@ -16,26 +16,9 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$app = $this->app;
-
-		require __DIR__.'/../../routes.php';
-	}
-
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
 		$this->package('johnnygreen/laravel-api');
 
 		$app = $this->app;
-
-		$app['laravel-api'] = $app->share(function($app)
-		{
-			return new LaravelApi;
-		});
 
 		if ($app['config']->get('laravel-api::register_extensions', true))
 		{
@@ -54,6 +37,21 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			$this->registerUserCommands();
 			$this->registerPermissionCommands();
 		}
+
+		require __DIR__.'/../../routes.php';
+	}
+
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		$this->app['laravel-api'] = $this->app->share(function($app)
+		{
+			return new LaravelApi;
+		});
 	}
 
 	public function registerExtensions()
