@@ -7,6 +7,6 @@
 
 \Route::resource(
 	'api/tokens',
-	'\Johnnygreen\LaravelApi\TokensController'/*,
-	['only' => ['store']]*/
+	'\Johnnygreen\LaravelApi\TokensController',
+	['only' => ['store']]
 );
