@@ -17,6 +17,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('johnnygreen/laravel-api');
+
 		require __DIR__.'/../../routes.php';
 	}
 
@@ -33,6 +34,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		});
 
 		$this->registerExtensions();
+		$this->registerErrorHandlers();
 		$this->registerApiCommands();
 		$this->registerGroupCommands();
 		$this->registerUserCommands();
@@ -47,6 +49,31 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			{
 				return new Auth\TokenGuard;
 			});
+		});
+	}
+
+	public function registerErrorHandlers()
+	{
+		App::error(function(MethodNotAllowedHttpException $exception, $code)
+		{
+			if (\Request::getMethod() === "OPTIONS")
+			{
+				$headers = $exception->getHeaders();
+				$allow = isset($headers['Allow']) ? $headers['Allow'] : '*';
+
+				$headers = [
+					'Access-Control-Allow-Origin' => '*',
+					'Access-Control-Allow-Methods'=> $allow,
+					'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type'
+				];
+
+				return Response::make('', 200, $headers);
+			}
+
+			return \v1\Serializer\Error::json([
+				'code'    => $code,
+				'message' => 'Method Not Allowed'
+			]);
 		});
 	}
 
