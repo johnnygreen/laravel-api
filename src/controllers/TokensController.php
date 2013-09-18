@@ -1,7 +1,5 @@
 <?php namespace Johnnygreen\LaravelApi;
 
-use Illuminate\Routing\Controller;
-
 use Johnnygreen\LaravelApi\Auth\Token;
 use Johnnygreen\LaravelApi\RestfulJsonApi;
 
