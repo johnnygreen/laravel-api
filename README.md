@@ -1,6 +1,6 @@
 Laravel-API
 ===========
-Authorization and Authentication using simple access_tokens.  Auth extends Laravel 4 \Auth with "token" method.  Controller helper methods when using RestfulJsonApi trait.
+Authorization and Authentication using simple access_tokens.  Auth extends Laravel 4 \Auth with "token" driver.  Controller helper methods when using RestfulJsonApi trait.
 
 ## Installation
 To add Laravel-API to your Laravel application follow this three steps:
