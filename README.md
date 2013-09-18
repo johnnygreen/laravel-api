@@ -135,7 +135,7 @@ class TokensController extends ApiController {
 
 }
 ```
-### Route based Visibility
+### Route based Permissions
 
 A Permission exists in the permissions table for "ProductsController@index" to be able to access the index method.
 Also a User must be associated directly with that Permission, or one of a User's Groups must be associated with that Permission.
@@ -175,7 +175,7 @@ class ProductsController extends ApiController {
 
 }
 ```
-### Permission based Visibility
+### Name based Permissions
 
 A Permission exists in the permissions table for "Full Inventory Visibility". Also a User must be associated 
 directly with that Permission, or one of a User's Groups must be associated with that Permission.
