@@ -57,40 +57,34 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function registerExtensions()
 	{
-		$this->app->booted(function($app)
+		$this->app['auth']->extend('token', function()
 		{
-			\Auth::extend('token', function()
-			{
-				return new Auth\TokenGuard;
-			});
+			return new Auth\TokenGuard;
 		});
 	}
 
 	public function registerHandlers()
 	{
-		$this->app->booted(function($app)
+		$this->app->error(function(MethodNotAllowedHttpException $exception, $code)
 		{
-			\App::error(function(MethodNotAllowedHttpException $exception, $code)
+			if (\Request::getMethod() === "OPTIONS")
 			{
-				if (\Request::getMethod() === "OPTIONS")
-				{
-					$headers = $exception->getHeaders();
-					$allow = isset($headers['Allow']) ? $headers['Allow'] : '*';
+				$headers = $exception->getHeaders();
+				$allow = isset($headers['Allow']) ? $headers['Allow'] : '*';
 
-					$headers = [
-						'Access-Control-Allow-Origin' => '*',
-						'Access-Control-Allow-Methods'=> $allow,
-						'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type'
-					];
+				$headers = [
+					'Access-Control-Allow-Origin' => '*',
+					'Access-Control-Allow-Methods'=> $allow,
+					'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type'
+				];
 
-					return \Response::make('', 200, $headers);
-				}
+				return \Response::make('', 200, $headers);
+			}
 
-				return Serializers\Error::json([
-					'code'    => $code,
-					'message' => 'Method Not Allowed'
-				]);
-			});
+			return Serializers\Error::json([
+				'code'    => $code,
+				'message' => 'Method Not Allowed'
+			]);
 		});
 	}
 
