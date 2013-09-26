@@ -17,7 +17,7 @@ class ApiCommand extends Command {
 
 	public function fire()
 	{
-		$this->info("Laravel API Version: {$this->api->getVersion()}");
+		$this->info("Laravel API Version: {$this->api->version()}");
 	}
-	
+
 }
