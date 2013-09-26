@@ -19,6 +19,15 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	{
 		$this->package('johnnygreen/laravel-api');
 		$app = $this->app;
+
+		if ($app['config']->get('laravel-api::register_commands', true))
+		{
+			$this->registerApiCommands();
+			$this->registerGroupCommands();
+			$this->registerUserCommands();
+			$this->registerPermissionCommands();
+		}
+
 		require __DIR__.'/../../routes.php';
 	}
 
@@ -44,14 +53,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		if ($app['config']->get('laravel-api::register_handlers', true))
 		{
 			$this->registerHandlers();
-		}
-
-		if ($app['config']->get('laravel-api::register_commands', true))
-		{
-			$this->registerApiCommands();
-			$this->registerGroupCommands();
-			$this->registerUserCommands();
-			$this->registerPermissionCommands();
 		}
 	}
 
