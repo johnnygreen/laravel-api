@@ -2,7 +2,7 @@
 
 use Illuminate\Auth\UserInterface;
 
-class Token implements UserInterface {
+class Token extends \Eloquent implements UserInterface {
 
   // in seconds
   public $timeout = [

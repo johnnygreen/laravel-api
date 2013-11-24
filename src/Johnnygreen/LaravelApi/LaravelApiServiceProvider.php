@@ -17,10 +17,10 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('johnnygreen/laravel-api');
 		$app = $this->app;
+		$this->package('johnnygreen/laravel-api');
 
-		if ($app['config']->get('laravel-api::enable_commands', true))
+		if ($app['config']->get('laravel-api::enable_commands', false))
 		{
 			$this->registerApiCommands();
 			$this->registerGroupCommands();
@@ -28,7 +28,25 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			$this->registerPermissionCommands();
 		}
 
-		require __DIR__.'/../../routes.php';
+		if ($app['config']->get('laravel-api::enable_driver', false))
+		{
+			$this->enableDriver();
+		}
+
+		if ($app['config']->get('laravel-api::enable_cors', false))
+		{
+			$this->enableCors();
+		}
+
+		if ($app['config']->get('laravel-api::filter_name', false))
+		{
+			require __DIR__.'/../../filters.php';
+		}
+
+		if ($app['config']->get('laravel-api::tokens_route', false))
+		{
+			require __DIR__.'/../../routes.php';
+		}
 	}
 
 	/**
@@ -38,25 +56,13 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$app = $this->app;
-
-		$app['laravel-api'] = $this->app->share(function($app)
+		$this->app['laravel-api'] = $this->app->share(function($app)
 		{
 			return new LaravelApi;
 		});
-
-		if ($app['config']->get('laravel-api::enable_extensions', true))
-		{
-			$this->registerExtensions();
-		}
-
-		if ($app['config']->get('laravel-api::enable_handlers', true))
-		{
-			$this->registerHandlers();
-		}
 	}
 
-	public function registerExtensions()
+	public function enableDriver()
 	{
 		$this->app['auth']->extend('token', function()
 		{
@@ -64,7 +70,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		});
 	}
 
-	public function registerHandlers()
+	public function enableCors()
 	{
 		$this->app->error(function(MethodNotAllowedHttpException $exception, $code)
 		{
