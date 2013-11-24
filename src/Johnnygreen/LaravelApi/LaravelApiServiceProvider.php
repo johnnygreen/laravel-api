@@ -20,7 +20,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->package('johnnygreen/laravel-api');
 		$app = $this->app;
 
-		if ($app['config']->get('laravel-api::register_commands', true))
+		if ($app['config']->get('laravel-api::enable_commands', true))
 		{
 			$this->registerApiCommands();
 			$this->registerGroupCommands();
@@ -45,12 +45,12 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			return new LaravelApi;
 		});
 
-		if ($app['config']->get('laravel-api::register_extensions', true))
+		if ($app['config']->get('laravel-api::enable_extensions', true))
 		{
 			$this->registerExtensions();
 		}
 
-		if ($app['config']->get('laravel-api::register_handlers', true))
+		if ($app['config']->get('laravel-api::enable_handlers', true))
 		{
 			$this->registerHandlers();
 		}
