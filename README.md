@@ -29,6 +29,8 @@ The LaravelApi Facade currently doesn't do much, but we might see it in the futu
 'LaravelApi'		=> 'Johnnygreen\LaravelApi\Facades\LaravelApi',
 ```
 
+<b>or probably a more stable option would be to fork the project and reference your own repo in the above instructions.</b>
+
 Run the migrations for the package -- these databases will be created:
 ```
 users
