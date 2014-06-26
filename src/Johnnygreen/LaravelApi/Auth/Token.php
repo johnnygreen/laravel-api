@@ -20,6 +20,12 @@ class Token extends \Eloquent implements UserInterface {
     return $this->access_token;
   }
 
+  public function getRememberToken() { return ''; }
+
+  public function setRememberToken($token) {}
+
+  public function getRememberTokenName() { return 'remember_token'; }
+
   public function user()
   {
     $model = $this->user_model;
