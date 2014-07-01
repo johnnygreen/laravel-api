@@ -2,7 +2,7 @@
 
 class LaravelApi {
 
-	private $version = '0.1.7';
+	private $version = '0.1.10';
 
 	public function getVersion()
 	{
